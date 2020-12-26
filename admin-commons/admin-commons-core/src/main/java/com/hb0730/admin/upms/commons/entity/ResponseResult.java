@@ -11,6 +11,10 @@ public class ResponseResult extends HashMap<String, Object> {
 
     private static final long serialVersionUID = -8133301478679283367L;
 
+    public static ResponseResult newInstance() {
+        return new ResponseResult();
+    }
+
     public ResponseResult message(String message) {
         this.put("message", message);
         return this;

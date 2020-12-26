@@ -1,5 +1,6 @@
 package com.hb0730.upms.authorization.server.config;
 
+import com.hb0730.upms.authorization.server.exception.ResponseExceptionTranslator;
 import com.hb0730.upms.authorization.server.service.impl.RedisClientDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private final UserDetailsService userDetailsService;
     private final RedisConnectionFactory redisConnectionFactory;
     private final RedisClientDetailsServiceImpl redisClientDetailsService;
+    private final ResponseExceptionTranslator responseExceptionTranslator;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -51,8 +53,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .tokenServices(tokenServices())
-        //异常
-
+                .exceptionTranslator(responseExceptionTranslator)
         ;
     }
 

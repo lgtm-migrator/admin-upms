@@ -95,6 +95,11 @@
             <artifactId>admin-commons-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.hb0730</groupId>
+            <artifactId>admin-commons-security-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,6 +1,6 @@
 package com.hb0730.upms.authorization.server.handler;
 
-import com.hb0730.upms.authorization.server.commons.UpmsUtils;
+import com.hb0730.admin.upms.commons.utils.UpmsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;

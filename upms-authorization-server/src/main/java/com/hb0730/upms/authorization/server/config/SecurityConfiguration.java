@@ -1,6 +1,6 @@
 package com.hb0730.upms.authorization.server.config;
 
-import com.hb0730.upms.authorization.server.commons.EndpointConstant;
+import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
 import com.hb0730.upms.authorization.server.handler.WebLoginFailureHandler;
 import com.hb0730.upms.authorization.server.handler.WebLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;

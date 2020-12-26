@@ -1,4 +1,4 @@
-package com.hb0730.upms.authorization.server.commons;
+package com.hb0730.admin.upms.commons.entity.constant;
 
 /**
  * 端点常量

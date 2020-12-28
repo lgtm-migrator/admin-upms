@@ -28,6 +28,21 @@ public class IOauthClientDetailsServiceTest {
     }
 
     @Test
+    public void createOauthClientDetails2() {
+        OauthClientDetails details = new OauthClientDetails();
+        details.setClientId("test1");
+        details.setClientSecret("secret");
+        details.setAuthorizedGrantTypes("password,refresh_token,authorization_code");
+        details.setWebServerRedirectUri("http://blod.hb0730.com");
+        details.setAuthorities("ROLE_ALL");
+        details.setScope("read,write");
+        details.setAutoapprove(Byte.valueOf("true"));
+        details.setAccessTokenValidity(Integer.MAX_VALUE);
+        details.setRefreshTokenValidity(Integer.MAX_VALUE);
+        oauthClientDetailsServiceImpl.createOauthClientDetails(details);
+    }
+
+    @Test
     public void updateOauthClientDetails() {
         OauthClientDetails details = new OauthClientDetails();
         details.setClientId("test1");

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 
 /**
+ * 用户信息
+ *
  * @author bing_huang
  */
 @Service

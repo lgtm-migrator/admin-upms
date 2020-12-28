@@ -2,19 +2,24 @@ package com.hb0730.upms.authorization.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hb0730.admin.upms.commons.enums.ActionEnum;
 import com.hb0730.upms.authorization.server.entity.OauthClientDetails;
+import com.hb0730.upms.authorization.server.event.ClientEvent;
 import com.hb0730.upms.authorization.server.exceptions.AdminUpmsException;
 import com.hb0730.upms.authorization.server.mapper.OauthClientDetailsMapper;
 import com.hb0730.upms.authorization.server.service.IOauthClientDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * jdbc存储的客户端信息
+ *
  * @author bing_huang
  */
 @Slf4j
@@ -23,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetailsMapper, OauthClientDetails> implements IOauthClientDetailsService {
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationContext context;
 
     @Override
     public OauthClientDetails findById(String clientId) {
@@ -42,6 +48,7 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
         if (saved) {
             log.info("缓存Client -> {}", oauthClientDetails);
         }
+        context.publishEvent(new ClientEvent(this, oauthClientDetails.getClientId(), ActionEnum.ADD_NEW));
     }
 
     @Override
@@ -55,6 +62,7 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
         if (updated) {
             log.info("更新Client -> {}", oauthClientDetails);
         }
+        context.publishEvent(new ClientEvent(this, clientId, ActionEnum.UPDATE));
 
     }
 
@@ -69,5 +77,6 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
             log.info("删除ClientId为({})的Client", clientIds);
 
         }
+        context.publishEvent(new ClientEvent(this, clientIds, ActionEnum.DELETE));
     }
 }

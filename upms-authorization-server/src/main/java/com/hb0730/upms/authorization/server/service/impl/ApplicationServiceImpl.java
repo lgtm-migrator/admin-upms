@@ -5,6 +5,8 @@ import com.hb0730.upms.authorization.server.service.IApplicationService;
 import org.springframework.stereotype.Service;
 
 /**
+ * 应用信息(项目)
+ *
  * @author bing_huang
  */
 @Service

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 权限范围
+ *
  * @author bing_huang
  */
 @Service

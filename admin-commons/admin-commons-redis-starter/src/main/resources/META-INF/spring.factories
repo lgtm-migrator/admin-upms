@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.hb0730.admin.upms.comons.redis.RedisAutoConfigure
+com.hb0730.admin.upms.comons.redis.configuration.RedisAutoConfigure

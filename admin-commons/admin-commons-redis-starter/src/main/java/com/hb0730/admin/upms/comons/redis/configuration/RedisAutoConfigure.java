@@ -1,8 +1,9 @@
-package com.hb0730.admin.upms.comons.redis;
+package com.hb0730.admin.upms.comons.redis.configuration;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hb0730.admin.upms.comons.redis.service.RedisService;
 import com.hb0730.commons.cache.Cache;
 import com.hb0730.commons.cache.impl.remote.RedisSpringDataCache;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
@@ -71,5 +72,10 @@ public class RedisAutoConfigure {
         RedisSpringDataCacheConfig<String, Object> cacheConfig = new RedisSpringDataCacheConfig<String, Object>();
         cacheConfig.setConnectionFactory(factory);
         return new RedisSpringDataCache<String, Object>(cacheConfig);
+    }
+
+    @Bean(value = "redisService")
+    public RedisService redisService(RedisConnectionFactory factory) {
+        return new RedisService(redisTemplate(factory));
     }
 }

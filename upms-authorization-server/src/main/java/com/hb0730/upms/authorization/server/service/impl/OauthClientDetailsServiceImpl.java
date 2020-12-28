@@ -3,9 +3,9 @@ package com.hb0730.upms.authorization.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hb0730.admin.upms.commons.enums.ActionEnum;
+import com.hb0730.admin.upms.commons.exceptions.UpmsException;
 import com.hb0730.upms.authorization.server.entity.OauthClientDetails;
 import com.hb0730.upms.authorization.server.event.ClientEvent;
-import com.hb0730.upms.authorization.server.exceptions.AdminUpmsException;
 import com.hb0730.upms.authorization.server.mapper.OauthClientDetailsMapper;
 import com.hb0730.upms.authorization.server.service.IOauthClientDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
     public void createOauthClientDetails(OauthClientDetails oauthClientDetails) {
         OauthClientDetails byId = this.findById(oauthClientDetails.getClientId());
         if (byId != null) {
-            throw new AdminUpmsException("该Client已存在");
+            throw new UpmsException("该Client已存在");
         }
         oauthClientDetails.setAdditionalInformation(oauthClientDetails.getClientSecret());
         oauthClientDetails.setClientSecret(passwordEncoder.encode(oauthClientDetails.getClientSecret()));

@@ -34,7 +34,7 @@ public class RedisClientDetailsServiceImpl extends JdbcClientDetailsService impl
     /**
      * 缓存 client的 redis key，这里是 hash结构存储
      */
-    private static final String CACHE_CLIENT_KEY = "upm:oauth:client_details";
+    private static final String CACHE_CLIENT_KEY = "spring:oauth:client_details";
     private final RedisService redisService;
 
     public RedisClientDetailsServiceImpl(@Qualifier("dataSource") DataSource dataSource, RedisService redisService) {

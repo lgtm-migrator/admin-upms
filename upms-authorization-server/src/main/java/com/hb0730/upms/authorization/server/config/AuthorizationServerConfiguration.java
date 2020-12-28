@@ -14,7 +14,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -61,6 +64,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     @Bean
+    public ResourceOwnerPasswordTokenGranter resourceOwnerPasswordTokenGranter(AuthenticationManager authenticationManager,
+                                                                               OAuth2RequestFactory oAuth2RequestFactory) {
+        DefaultTokenServices defaultTokenServices = tokenServices();
+        return new ResourceOwnerPasswordTokenGranter(authenticationManager, defaultTokenServices, redisClientDetailsService, oAuth2RequestFactory);
+    }
+
+
+    @Bean
     public TokenStore tokenStore() {
         RedisTokenStore store = new RedisTokenStore(redisConnectionFactory);
         store.setAuthenticationKeyGenerator(oAuth2Authentication -> UUID.randomUUID().toString());
@@ -75,4 +86,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         tokenServices.setClientDetailsService(redisClientDetailsService);
         return tokenServices;
     }
+
+    @Bean
+    public DefaultOAuth2RequestFactory oAuth2RequestFactory() {
+        return new DefaultOAuth2RequestFactory(redisClientDetailsService);
+    }
+
 }

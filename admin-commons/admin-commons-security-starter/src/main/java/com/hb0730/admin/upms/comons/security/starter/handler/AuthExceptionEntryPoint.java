@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * @author bing_huang
  */
-public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
+public class AuthExceptionEntryPoint implements AuthenticationEntryPoint  {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthExceptionEntryPoint.class);
 
     @SneakyThrows

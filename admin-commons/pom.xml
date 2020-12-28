@@ -6,19 +6,21 @@
         <artifactId>admin-upms-parent</artifactId>
         <groupId>com.hb0730</groupId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>admin-commons</artifactId>
     <name>${artifactId}</name>
+    <packaging>pom</packaging>
+    <description>通用模板</description>
+
     <modules>
         <module>admin-commons-core</module>
         <module>admin-commons-security-starter</module>
         <module>admin-commons-redis-starter</module>
     </modules>
-    <packaging>pom</packaging>
-    <version>${parent.version}</version>
-    <description>通用模板</description>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

@@ -1,6 +1,8 @@
 package com.hb0730.upms.authorization.server.config;
 
 import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
+import com.hb0730.admin.upms.comons.security.starter.handler.AuthExceptionEntryPoint;
+import com.hb0730.admin.upms.comons.security.starter.handler.SecurityAccessDeniedHandler;
 import com.hb0730.upms.authorization.server.handler.WebLoginFailureHandler;
 import com.hb0730.upms.authorization.server.handler.WebLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -28,6 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailService;
     private final WebLoginSuccessHandler webLoginSuccessHandler;
     private final WebLoginFailureHandler webLoginFailureHandler;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthExceptionEntryPoint authExceptionEntryPoint;
+    private final SecurityAccessDeniedHandler securityAccessDeniedHandler;
 
     @Bean
     @Override
@@ -37,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -49,10 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .requestMatchers()
-                .antMatchers(EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN)
+                .antMatchers(EndpointConstant.ALL, EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN)
                 .and()
                 .authorizeRequests()
-                .antMatchers(EndpointConstant.LOGIN).permitAll()
                 .antMatchers(EndpointConstant.OAUTH_ALL).authenticated()
                 .anyRequest().authenticated()
                 .and()
@@ -63,12 +66,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(webLoginFailureHandler)
                 .permitAll()
                 .and()
-                .cors();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+                .cors()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authExceptionEntryPoint)
+                .accessDeniedHandler(securityAccessDeniedHandler)
+        ;
     }
 
 }

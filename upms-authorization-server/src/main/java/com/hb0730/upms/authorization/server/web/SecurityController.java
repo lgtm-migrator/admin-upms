@@ -17,6 +17,12 @@ import java.security.Principal;
 public class SecurityController {
     private final ConsumerTokenServices consumerTokenServices;
 
+    @RequestMapping("/index")
+    @ResponseBody
+    public String index() {
+        return "欢迎访问";
+    }
+
     /**
      * 获取当前用户
      *

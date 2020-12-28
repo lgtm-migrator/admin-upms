@@ -28,6 +28,7 @@ public class WebLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         HttpSession session = request.getSession(false);
+        String redirectUrl;
         if (session != null) {
             Object attribute = session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
             log.info("跳转到登录页的地址为: {}", attribute);
@@ -35,10 +36,11 @@ public class WebLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
 
         if (UpmsUtils.isAjaxRequest(request)) {
             if (savedRequest == null) {
-                super.onAuthenticationSuccess(request, response, authentication);
-                return;
+                redirectUrl = "/index";
+            } else {
+
+                redirectUrl = savedRequest.getRedirectUrl();
             }
-            String redirectUrl = savedRequest.getRedirectUrl();
             String json = "{\"status\":\"200\",\"message\":\"成功\",\"data\":\"" + redirectUrl + "\"}";
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_OK);

@@ -1,0 +1,53 @@
+server:
+  port: 8099
+spring:
+  application:
+    name: umps-authorization-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oauth2-server?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: admin123
+    type: com.zaxxer.hikari.HikariDataSource
+    platform: mysql
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    host: localhost
+    password: admin123
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    database: 3
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      #逻辑删除
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      #更新 插入 查询策略
+      update-strategy: ignored
+      insert-strategy: ignored
+      select-strategy: ignored
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  :

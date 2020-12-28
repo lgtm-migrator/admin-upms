@@ -4,6 +4,7 @@ import com.hb0730.admin.upms.commons.entity.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @SuppressWarnings("all")
-public class ResponseExceptionTranslator implements WebResponseExceptionTranslator<ResponseResult> {
+public class ResponseExceptionTranslator implements WebResponseExceptionTranslator {
     @Override
-    public ResponseEntity<ResponseResult> translate(Exception e) {
+    public ResponseEntity<?> translate(Exception e) {
         ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        status.contentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseResult response = ResponseResult.newInstance();
         String message = "认证失败";
         log.error(message, e);

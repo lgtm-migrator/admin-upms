@@ -1,8 +1,6 @@
 package com.hb0730.upms.authorization.server.config;
 
 import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
-import com.hb0730.admin.upms.comons.security.starter.handler.AuthExceptionEntryPoint;
-import com.hb0730.admin.upms.comons.security.starter.handler.SecurityAccessDeniedHandler;
 import com.hb0730.upms.authorization.server.handler.WebLoginFailureHandler;
 import com.hb0730.upms.authorization.server.handler.WebLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final WebLoginSuccessHandler webLoginSuccessHandler;
     private final WebLoginFailureHandler webLoginFailureHandler;
     private final PasswordEncoder passwordEncoder;
-    private final AuthExceptionEntryPoint authExceptionEntryPoint;
-    private final SecurityAccessDeniedHandler securityAccessDeniedHandler;
 
     @Bean
     @Override
@@ -53,9 +49,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .requestMatchers()
-                .antMatchers(EndpointConstant.ALL, EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN)
+                .antMatchers(EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN)
                 .and()
                 .authorizeRequests()
+                .antMatchers(EndpointConstant.LOGIN).permitAll()
                 .antMatchers(EndpointConstant.OAUTH_ALL).authenticated()
                 .anyRequest().authenticated()
                 .and()
@@ -67,10 +64,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .cors()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(authExceptionEntryPoint)
-                .accessDeniedHandler(securityAccessDeniedHandler)
         ;
     }
 

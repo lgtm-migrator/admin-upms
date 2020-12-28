@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @SuppressWarnings("all")
-public class ResponseExceptionTranslator implements WebResponseExceptionTranslator {
+public class ResponseExceptionTranslator implements WebResponseExceptionTranslator<ResponseResult> {
     @Override
-    public ResponseEntity translate(Exception e) {
+    public ResponseEntity<ResponseResult> translate(Exception e) {
         ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         ResponseResult response = ResponseResult.newInstance();
         String message = "认证失败";

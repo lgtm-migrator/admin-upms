@@ -1,6 +1,5 @@
 package com.hb0730.upms.authorization.server.config;
 
-import com.hb0730.upms.authorization.server.exception.ResponseExceptionTranslator;
 import com.hb0730.upms.authorization.server.service.impl.RedisClientDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -33,7 +33,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private final UserDetailsService userDetailsService;
     private final RedisConnectionFactory redisConnectionFactory;
     private final RedisClientDetailsServiceImpl redisClientDetailsService;
-    private final ResponseExceptionTranslator responseExceptionTranslator;
+    private final WebResponseExceptionTranslator responseExceptionTranslator;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {

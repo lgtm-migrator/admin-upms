@@ -50,4 +50,3 @@ mybatis-plus:
       select-strategy: ignored
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  :

@@ -1,0 +1,77 @@
+server:
+  port: 9000
+  servlet:
+    session:
+      cookie:
+        name: upms-server
+spring:
+  application:
+    name: umps-authorization-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oauth2-server?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: admin1234
+    type: com.zaxxer.hikari.HikariDataSource
+    platform: mysql
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    host: localhost
+    password: admin1234
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    database: 3
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        provider:
+          upms-login:
+            authorization-uri: http://localhost:8099/oauth/authorize
+            token-uri: http://localhost:8099/oauth/token
+            user-info-uri: http://localhost:9000/oauth/userinfo
+            user-name-attribute: name
+        registration:
+          upms-login:
+            provider: upms-login
+            client-id: upms-server
+            client-secret: upms123456
+            authorization-grant-type: authorization_code
+            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+      resourceserver:
+        opaquetoken:
+          client-id: upms-server
+          client-secret: upms123456
+          introspection-uri: http://localhost:8099/oauth/check_token
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      #逻辑删除
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      #更新 插入 查询策略
+      update-strategy: ignored
+      insert-strategy: ignored
+      select-strategy: ignored
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

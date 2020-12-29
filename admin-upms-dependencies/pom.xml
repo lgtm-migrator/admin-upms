@@ -27,6 +27,7 @@
         <validation.api.version>2.0.1.Final</validation.api.version>
         <commons.lang3.version>3.10</commons.lang3.version>
         <hb0730.commons.version>2.0.3-RELEASE</hb0730.commons.version>
+        <velocity.engine.version>2.2</velocity.engine.version>
     </properties>
 
     <dependencyManagement>
@@ -47,6 +48,16 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.engine.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

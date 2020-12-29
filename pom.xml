@@ -8,6 +8,7 @@
         <module>admin-upms-dependencies</module>
         <module>upms-authorization-server</module>
         <module>admin-commons</module>
+        <module>upms-server</module>
     </modules>
 
     <groupId>com.hb0730</groupId>

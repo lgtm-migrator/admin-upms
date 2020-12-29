@@ -1,5 +1,8 @@
 package com.hb0730.upms.authorization.server.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,23 +11,17 @@ import java.io.Serializable;
  * @author bing_huang
  */
 @Data
+@TableName("sys_oauth_application")
 public class Application implements Serializable {
+    private static final long serialVersionUID = -2092675914831375846L;
+    /**
+     * appid
+     */
+    @TableId(value = "app_id")
     private String appid;
+    /**
+     * name
+     */
+    @TableField(value = "name")
     private String name;
-
-    public String getAppid() {
-        return appid;
-    }
-
-    public void setAppid(String appid) {
-        this.appid = appid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

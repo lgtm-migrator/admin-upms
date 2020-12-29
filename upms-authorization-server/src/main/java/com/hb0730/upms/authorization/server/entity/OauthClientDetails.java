@@ -5,9 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -18,66 +15,53 @@ import java.io.Serializable;
 @Data
 @TableName("oauth_client_details")
 public class OauthClientDetails implements Serializable {
-    private static final long serialVersionUID = 421783821058285802L;
-
+    private static final long serialVersionUID = -248594946089871021L;
     /**
      * client
      */
     @TableId(value = "client_id")
-    @NotBlank(message = "{required}")
-    @Size(max = 255, message = "{noMoreThan}")
     private String clientId;
 
     /**
      * 所属资源id
      */
     @TableField("resource_ids")
-    @Size(max = 255, message = "{noMoreThan}")
     private String resourceIds;
 
     /**
      * 客户端密钥
      */
     @TableField("client_secret")
-    @NotBlank(message = "{required}")
-    @Size(max = 255, message = "{noMoreThan}")
     private String clientSecret;
 
     /**
      * 权限范围
      */
     @TableField("scope")
-    @NotBlank(message = "{required}")
-    @Size(max = 255, message = "{noMoreThan}")
     private String scope;
 
     /**
      * 客户端支持的grant_typ
      */
     @TableField("authorized_grant_types")
-    @NotBlank(message = "{required}")
-    @Size(max = 255, message = "{noMoreThan}")
     private String authorizedGrantTypes;
 
     /**
      * 重定向
      */
     @TableField("web_server_redirect_uri")
-    @Size(max = 255, message = "{noMoreThan}")
     private String webServerRedirectUri;
 
     /**
      * 客户端所拥有的Spring Security的权限值
      */
     @TableField("authorities")
-    @Size(max = 255, message = "{noMoreThan}")
     private String authorities;
 
     /**
      * 设定客户端的access_token的有效时间值(单位:秒)
      */
     @TableField("access_token_validity")
-    @NotNull(message = "{required}")
     private Integer accessTokenValidity;
 
     /**

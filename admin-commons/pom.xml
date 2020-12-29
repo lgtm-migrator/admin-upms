@@ -19,6 +19,7 @@
         <module>admin-commons-core</module>
         <module>admin-commons-security-starter</module>
         <module>admin-commons-redis-starter</module>
+        <module>admin-commons-domain</module>
     </modules>
 
     <properties>

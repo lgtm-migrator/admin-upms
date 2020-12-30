@@ -1,8 +1,10 @@
 package com.hb0730.upms.authorization.server.service.impl;
 
+import com.hb0730.admin.upms.commons.entity.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.Lists;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,16 +39,30 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     public List<UserDetails> userList() {
         List<UserDetails> users = Lists.newArrayList();
-        users.add(User.withUsername("Administrator")
-                .password(passwordEncoder.encode("123456"))
-                .roles("admin")
-                .build());
-        users.add(
-                User.withUsername("admin")
-                        .password(passwordEncoder.encode("123456"))
-                        .roles("admin").build()
+        List<GrantedAuthority> authorityList = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "test:permission");
+        AuthUser user = new AuthUser(
+                "Administrator",
+                passwordEncoder.encode("123456"),
+                true,
+                true,
+                true,
+                true,
+                authorityList
         );
-
+        user.setUserId(-1L);
+        users.add(user);
+        authorityList = AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+        user = new AuthUser(
+                "admin",
+                passwordEncoder.encode("123456"),
+                true,
+                true,
+                true,
+                true,
+                authorityList
+        );
+        user.setUserId(1L);
+        users.add(user);
         return users;
     }
 }

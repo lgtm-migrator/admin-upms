@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -18,10 +19,14 @@ import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -60,6 +65,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authorizationCodeServices(authenticationCodeService)
                 .tokenServices(tokenServices())
                 .exceptionTranslator(responseExceptionTranslator)
+                .accessTokenConverter(accessTokenConverter())
         ;
     }
 
@@ -90,6 +96,31 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Bean
     public DefaultOAuth2RequestFactory oAuth2RequestFactory() {
         return new DefaultOAuth2RequestFactory(redisClientDetailsService);
+    }
+
+    /**
+     * 解决获取不到相关用户信息
+     *
+     * @return {@link DefaultAccessTokenConverter}
+     */
+    @Bean
+    public DefaultAccessTokenConverter accessTokenConverter() {
+        DefaultAccessTokenConverter defaultAccessTokenConverter = new DefaultAccessTokenConverter();
+        defaultAccessTokenConverter.setUserTokenConverter(new UserAuthenticationConverter());
+        return defaultAccessTokenConverter;
+    }
+
+    @Component
+    static class UserAuthenticationConverter extends DefaultUserAuthenticationConverter {
+        @Override
+        public Map<String, ?> convertUserAuthentication(Authentication authentication) {
+            return super.convertUserAuthentication(authentication);
+        }
+
+        @Override
+        public Authentication extractAuthentication(Map<String, ?> map) {
+            return super.extractAuthentication(map);
+        }
     }
 
 }

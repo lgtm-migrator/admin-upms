@@ -40,6 +40,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/oauth/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies(upmsSecurityStarterProperties.getRegistrationId(),"authorization-server")
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .and()
 //                .sessionManagement()

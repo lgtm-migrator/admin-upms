@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.hb0730</groupId>
-            <artifactId>admin-commons-security-starter</artifactId>
+            <artifactId>admin-security-starter</artifactId>
             <version>${parent.version}</version>
         </dependency>
 

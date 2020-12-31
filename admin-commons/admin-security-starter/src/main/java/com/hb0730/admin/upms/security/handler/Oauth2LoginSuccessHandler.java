@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.server.system.security.handler;
+package com.hb0730.admin.upms.security.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

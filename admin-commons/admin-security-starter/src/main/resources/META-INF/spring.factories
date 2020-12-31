@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
+ com.hb0730.admin.upms.security.UpmsSecurityAutoConfiguration, \
+com.hb0730.admin.upms.commons.security.starter.configuration.SecurityAutoConfigure

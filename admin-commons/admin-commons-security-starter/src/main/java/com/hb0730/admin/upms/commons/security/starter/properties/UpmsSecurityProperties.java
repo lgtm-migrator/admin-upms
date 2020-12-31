@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.comons.security.starter.properties;
+package com.hb0730.admin.upms.commons.security.starter.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

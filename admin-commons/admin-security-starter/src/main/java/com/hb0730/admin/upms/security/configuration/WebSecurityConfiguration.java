@@ -1,6 +1,6 @@
-package com.hb0730.admin.upms.server.system.security.configuration;
+package com.hb0730.admin.upms.security.configuration;
 
-import com.hb0730.admin.upms.server.system.security.handler.Oauth2LoginSuccessHandler;
+import com.hb0730.admin.upms.security.handler.Oauth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

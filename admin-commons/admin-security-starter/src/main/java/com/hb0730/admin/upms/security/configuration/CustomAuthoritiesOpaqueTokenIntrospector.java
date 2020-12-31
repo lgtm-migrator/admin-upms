@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.server.system.security.configuration;
+package com.hb0730.admin.upms.security.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,11 +15,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 解决调用权限问题
+ *
  * @author bing_huang
  */
 @Component
 public class CustomAuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
-    private OpaqueTokenIntrospector delegate;
+    private final OpaqueTokenIntrospector delegate;
 
     public CustomAuthoritiesOpaqueTokenIntrospector(
             @Value("${spring.security.oauth2.resourceserver.opaque-token.introspection-uri}") String introspectionUri,

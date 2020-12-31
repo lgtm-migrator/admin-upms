@@ -23,34 +23,6 @@ import java.util.Map;
 @Slf4j
 public class OauthEndPoint {
 
-    @RequestMapping("/userinfo")
-    @ResponseBody
-    public Map<String, Object> user(Principal principal) {
-        // 为何转为map
-        // 当security5 Client请求过来时流程
-        // Oauth2LoginAuthenticationFilter#attemptAuthentication 184
-        // OAuth2LoginAuthenticationProvider#authenticate 110
-        // DefaultOAuth2Service#loadUser
-        // DefaultOAuth2User
-        BearerTokenAuthentication authentication = (BearerTokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        Map<String, Object> map = new HashMap<>();
-        map.put("authorities", authentication.getAuthorities());
-        map.put("details", authentication.getDetails());
-        map.put("authenticated", authentication.isAuthenticated());
-        map.put("principal", authentication.getPrincipal());
-        map.put("credentials", authentication.getCredentials());
-        map.put("token", authentication.getToken());
-        map.put("tokenAttributes", authentication.getTokenAttributes());
-        map.put("name", authentication.getTokenAttributes().get("user_name"));
-        return map;
-    }
-
-    @RequestMapping("/current/user")
-    @ResponseBody
-    public Authentication getCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
     @RequestMapping("/call/back")
     @ResponseBody
     public Authentication redirect(HttpServletRequest request, HttpServletResponse response) {

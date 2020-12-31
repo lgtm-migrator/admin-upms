@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.comons.security.starter.handler;
+package com.hb0730.admin.upms.commons.security.starter.handler;
 
 import com.hb0730.admin.upms.commons.entity.ResponseResult;
 import com.hb0730.admin.upms.commons.utils.UpmsUtils;

@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.comons.security.util;
+package com.hb0730.admin.upms.commons.security.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

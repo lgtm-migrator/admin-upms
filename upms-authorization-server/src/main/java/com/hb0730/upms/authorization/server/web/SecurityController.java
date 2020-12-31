@@ -1,5 +1,6 @@
 package com.hb0730.upms.authorization.server.web;
 
+import com.hb0730.admin.upms.commons.entity.constant.SystemConstant;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
@@ -48,9 +49,9 @@ public class SecurityController {
      * @return 是否成功
      */
     @ResponseBody
-    @DeleteMapping("signout")
+    @PostMapping("/signout")
     public String signout(HttpServletRequest request, @RequestHeader("Authorization") String token) {
-        token = StringUtils.replace(token, "bearer ", "");
+        token = StringUtils.replace(token, SystemConstant.OAUTH2_TOKEN_TYPE, "");
         consumerTokenServices.revokeToken(token);
         return "登出成功";
     }

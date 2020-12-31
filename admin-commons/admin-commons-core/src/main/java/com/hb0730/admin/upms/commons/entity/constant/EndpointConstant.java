@@ -25,4 +25,8 @@ public interface EndpointConstant {
     String ACTUATOR_ALL = "/actuator/**";
 
     String LOGIN = "/login";
+
+    String LOGOUT = "/logout";
+
+    String CUS_LOGOUT = "/signout";
 }

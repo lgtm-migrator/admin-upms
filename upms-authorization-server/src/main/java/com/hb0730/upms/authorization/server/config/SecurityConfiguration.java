@@ -53,10 +53,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .requestMatchers()
-                .antMatchers(EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN)
+                .antMatchers(EndpointConstant.OAUTH_ALL, EndpointConstant.LOGIN, EndpointConstant.ALL)
                 .and()
                 .authorizeRequests()
-                .antMatchers(EndpointConstant.LOGIN).permitAll()
+                .antMatchers(
+                        EndpointConstant.LOGIN,
+                        EndpointConstant.CUS_LOGOUT,
+                        EndpointConstant.LOGOUT).permitAll()
                 .antMatchers(EndpointConstant.OAUTH_ALL).authenticated()
                 .anyRequest().authenticated()
                 .and()
@@ -69,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .deleteCookies("JSESSIONID","SESSION","remember-me")
+                .deleteCookies("JSESSIONID", "SESSION", "remember-me")
                 .logoutSuccessHandler(webLogoutSuccessHandler)
                 .and()
                 .rememberMe()
@@ -78,6 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenRepository(redisRememberMeTokenRepository)
                 .and()
                 .cors()
+                .and()
+                .csrf().disable()
         ;
     }
 

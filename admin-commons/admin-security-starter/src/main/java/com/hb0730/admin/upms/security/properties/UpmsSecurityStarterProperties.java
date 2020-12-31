@@ -4,7 +4,6 @@ import com.hb0730.admin.upms.commons.security.starter.properties.UpmsSecurityPro
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * security 配置
@@ -24,4 +23,14 @@ public class UpmsSecurityStarterProperties extends UpmsSecurityProperties {
      * 当前应用
      */
     private String[] appid;
+
+    /**
+     * 注销端点
+     */
+    private String logoutEndpoint;
+
+    /**
+     * 注销后重定向
+     */
+    private String  logoutRedirectUri;
 }

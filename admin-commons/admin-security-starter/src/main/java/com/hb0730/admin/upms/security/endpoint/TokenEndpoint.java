@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,5 +25,17 @@ public class TokenEndpoint {
     @ResponseBody
     public OAuth2AuthorizedClient getToken(Authentication authentication) {
         return authorizedClientService.loadAuthorizedClient(properties.getRegistrationId(), authentication.getName());
+    }
+
+
+    /**
+     * 刷新令牌
+     *
+     * @param refreshToken 刷新令牌 token
+     * @return 以及刷新后的认证信息
+     */
+    public OAuth2AuthorizedClient refreshToken(@RequestParam("refresh_token") String refreshToken) {
+
+        return null;
     }
 }

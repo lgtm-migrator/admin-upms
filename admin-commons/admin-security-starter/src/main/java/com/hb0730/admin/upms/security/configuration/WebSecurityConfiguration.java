@@ -1,6 +1,7 @@
 package com.hb0730.admin.upms.security.configuration;
 
 import com.hb0730.admin.upms.security.handler.Oauth2LoginSuccessHandler;
+import com.hb0730.admin.upms.security.service.client.RedisOauth2AuthorizedClientServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAuthoritiesOpaqueTokenIntrospector opaqueTokenIntrospector;
     private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
+    private final RedisOauth2AuthorizedClientServiceImpl redisOauth2AuthorizedClientService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,7 +31,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .cors()
-//                .and()
+                .and()
+                .logout()
+                .logoutUrl("/oauth/logout")
 //                .sessionManagement()
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;
@@ -45,8 +49,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .userInfoEndpoint()
                 .and()
+                .authorizationEndpoint()
+                .and()
                 .successHandler(oauth2LoginSuccessHandler)
         ;
-        http.oauth2Client();
+        http
+                .oauth2Client()
+                .authorizedClientService(redisOauth2AuthorizedClientService)
+        ;
     }
 }

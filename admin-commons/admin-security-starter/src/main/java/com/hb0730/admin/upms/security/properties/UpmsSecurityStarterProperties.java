@@ -17,13 +17,20 @@ public class UpmsSecurityStarterProperties extends UpmsSecurityProperties {
     /**
      * 客户端
      */
-    private String registrationId;
+    private String clientId;
+    /**
+     * 客户端密钥
+     */
+    private String clientSecret;
 
     /**
      * 当前应用
      */
     private String[] appid;
-
+    /**
+     * 登录端点
+     */
+    private String loginEndpoint;
     /**
      * 注销端点
      */
@@ -32,5 +39,5 @@ public class UpmsSecurityStarterProperties extends UpmsSecurityProperties {
     /**
      * 注销后重定向
      */
-    private String  logoutRedirectUri;
+    private String logoutRedirectUri;
 }

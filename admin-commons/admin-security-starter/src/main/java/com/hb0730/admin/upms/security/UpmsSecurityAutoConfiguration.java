@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 @ConditionalOnProperty(value = "umps.security.enable", havingValue = "true", matchIfMissing = true)
 public class UpmsSecurityAutoConfiguration {
     public UpmsSecurityAutoConfiguration(UpmsSecurityStarterProperties properties) {
-        String registrationId = properties.getRegistrationId();
+        String registrationId = properties.getClientId();
         Assert.hasText(registrationId, "umps.security.registration-id must be not null");
         String[] appid = properties.getAppid();
         Assert.notEmpty(appid, "umps.security.appid must be not null");

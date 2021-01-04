@@ -1,5 +1,8 @@
 package com.hb0730.admin.upms.security.endpoint;
 
+import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
+import com.hb0730.admin.upms.commons.entity.constant.Oauth2Constant;
+import com.hb0730.admin.upms.commons.entity.constant.SystemConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
@@ -22,7 +25,7 @@ public class UserEndpoint {
     /**
      * 用户端点
      */
-    @RequestMapping("/oauth/userinfo")
+    @RequestMapping(value = "/oauth/userinfo", headers = {Oauth2Constant.OAUTH2_TOKEN_HEADER_AUTHORIZATION})
     @ResponseBody
     public Map<String, Object> user(Principal principal) {
         // 为何转为map

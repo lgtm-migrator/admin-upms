@@ -22,6 +22,6 @@ public class ClientEndpoint {
     @RequestMapping("/oauth/current/client")
     @ResponseBody
     public ClientRegistration getClientInfo() {
-        return clientRegistrationRepository.findByRegistrationId(properties.getRegistrationId());
+        return clientRegistrationRepository.findByRegistrationId(properties.getClientId());
     }
 }

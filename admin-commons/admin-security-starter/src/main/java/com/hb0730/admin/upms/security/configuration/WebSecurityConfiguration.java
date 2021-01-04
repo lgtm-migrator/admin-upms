@@ -1,18 +1,17 @@
 package com.hb0730.admin.upms.security.configuration;
 
-import com.hb0730.admin.upms.security.handler.Oauth2LoginSuccessHandler;
+import com.hb0730.admin.upms.security.handler.login.Oauth2LoginSuccessHandler;
 import com.hb0730.admin.upms.security.handler.logout.Oauth2LogoutSuccessHandler;
 import com.hb0730.admin.upms.security.properties.UpmsSecurityStarterProperties;
 import com.hb0730.admin.upms.security.service.client.RedisOauth2AuthorizedClientServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
  * @author bing_huang
@@ -26,13 +25,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomAuthoritiesOpaqueTokenIntrospector opaqueTokenIntrospector;
     private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
     private final RedisOauth2AuthorizedClientServiceImpl redisOauth2AuthorizedClientService;
-    private final ClientRegistrationRepository clientRegistrationRepository;
     private final UpmsSecurityStarterProperties upmsSecurityStarterProperties;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/oauth/login").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .csrf().disable()
@@ -41,7 +40,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/oauth/logout")
                 .invalidateHttpSession(true)
-                .deleteCookies(upmsSecurityStarterProperties.getRegistrationId(),"authorization-server")
+                .clearAuthentication(true)
+                .deleteCookies("upms-server", "authorization-server")
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .and()
 //                .sessionManagement()
@@ -74,10 +74,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    public LogoutSuccessHandler logoutSuccessHandler() {
-        Oauth2LogoutSuccessHandler logoutSuccessHandler = new Oauth2LogoutSuccessHandler(clientRegistrationRepository, upmsSecurityStarterProperties);
-        logoutSuccessHandler.setPostLogoutRedirectUri("/logout");
-        return logoutSuccessHandler;
+    @Bean
+    public Oauth2LogoutSuccessHandler logoutSuccessHandler() {
+        return new Oauth2LogoutSuccessHandler(upmsSecurityStarterProperties)
+                .setPostLogoutRedirectUri(upmsSecurityStarterProperties.getLogoutRedirectUri());
     }
 
 

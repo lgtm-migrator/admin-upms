@@ -1,4 +1,4 @@
-package com.hb0730.admin.upms.security.handler;
+package com.hb0730.admin.upms.security.handler.login;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

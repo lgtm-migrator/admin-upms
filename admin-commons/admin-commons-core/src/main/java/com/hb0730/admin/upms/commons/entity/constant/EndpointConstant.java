@@ -24,9 +24,9 @@ public interface EndpointConstant {
 
     String ACTUATOR_ALL = "/actuator/**";
 
-    String LOGIN = "/login";
+    String LOGIN = "/oauth/login";
 
-    String LOGOUT = "/logout";
+    String LOGOUT = "/oauth/logout";
 
-    String CUS_LOGOUT = "/signout";
+    String CUS_LOGOUT = "/oauth/signout";
 }

@@ -1,7 +1,9 @@
 package com.hb0730.admin.upms.commons.utils;
 
+import com.hb0730.admin.upms.commons.entity.constant.Oauth2Constant;
 import com.hb0730.commons.json.exceptions.JsonException;
 import com.hb0730.commons.json.utils.Jsons;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +76,21 @@ public class UpmsUtils {
      */
     public static void makeJsonResponse(HttpServletResponse response, int status, Object value) throws IOException, JsonException {
         makeResponse(response, MediaType.APPLICATION_JSON_VALUE, status, value);
+    }
+
+    /**
+     * 获取access_token
+     *
+     * @param request 请求
+     * @return token, 可能为空
+     */
+    public static String getAccessToken(HttpServletRequest request) {
+        String header = request.getHeader(Oauth2Constant.OAUTH2_TOKEN_HEADER_AUTHORIZATION);
+        if (StringUtils.isNoneBlank(header) && StringUtils.startsWith(header, Oauth2Constant.OAUTH2_TOKEN_TYPE_BEARER)) {
+            return header.replace(Oauth2Constant.OAUTH2_TOKEN_TYPE_BEARER, "");
+        }
+        return null;
+
     }
 
 }

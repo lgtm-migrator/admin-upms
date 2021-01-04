@@ -1,5 +1,6 @@
 package com.hb0730.admin.upms.security.configuration;
 
+import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
 import com.hb0730.admin.upms.security.handler.login.Oauth2LoginSuccessHandler;
 import com.hb0730.admin.upms.security.handler.logout.Oauth2LogoutSuccessHandler;
 import com.hb0730.admin.upms.security.properties.UpmsSecurityStarterProperties;
@@ -31,14 +32,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/oauth/login").permitAll()
+                .antMatchers(EndpointConstant.LOGIN).permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .csrf().disable()
                 .cors()
                 .and()
                 .logout()
-                .logoutUrl("/oauth/logout")
+                .logoutUrl(EndpointConstant.LOGOUT)
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .deleteCookies("upms-server", "authorization-server")

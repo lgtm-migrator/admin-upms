@@ -19,4 +19,6 @@ public interface Oauth2Constant {
      * OAUTH2 令牌 header
      */
     String OAUTH2_TOKEN_HEADER_AUTHORIZATION = "authorization";
+
+    String OAUTH2_PARAMS_REFRESH="refresh_token";
 }

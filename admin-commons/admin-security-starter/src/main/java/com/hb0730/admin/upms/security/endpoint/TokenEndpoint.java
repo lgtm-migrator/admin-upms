@@ -1,7 +1,6 @@
 package com.hb0730.admin.upms.security.endpoint;
 
 import com.hb0730.admin.upms.commons.entity.constant.Oauth2Constant;
-import com.hb0730.admin.upms.commons.utils.UpmsUtils;
 import com.hb0730.admin.upms.security.handler.login.Oauth2LoginHandler;
 import com.hb0730.admin.upms.security.handler.refresh.Oauth2RefreshHandler;
 import com.hb0730.admin.upms.security.properties.UpmsSecurityStarterProperties;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 令牌相关信息
@@ -37,12 +34,25 @@ public class TokenEndpoint {
         this.oauth2RefreshHandler = new Oauth2RefreshHandler(properties);
     }
 
+    /**
+     * 获取当前client信息
+     *
+     * @param authentication 已认证的用户
+     * @return client信息
+     */
     @RequestMapping("/oauth/current/token")
     @ResponseBody
     public OAuth2AuthorizedClient getToken(Authentication authentication) {
         return authorizedClientService.loadAuthorizedClient(properties.getClientId(), authentication.getName());
     }
 
+    /**
+     * form-data表单提交 登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return Token
+     */
     @PostMapping(value = "/oauth/login")
     @ResponseBody
     public String login(String username, String password) {

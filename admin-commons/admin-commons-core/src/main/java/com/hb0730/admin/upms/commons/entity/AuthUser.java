@@ -18,6 +18,7 @@ import java.util.Collection;
 public class AuthUser extends User {
     private static final long serialVersionUID = 2437584899138933065L;
     private Long userId;
+    private String nickname;
 
     public AuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);

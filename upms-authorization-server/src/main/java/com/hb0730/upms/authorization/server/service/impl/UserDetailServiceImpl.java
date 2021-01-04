@@ -50,6 +50,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 authorityList
         );
         user.setUserId(-1L);
+        user.setNickname("超级管理员");
         users.add(user);
         authorityList = AuthorityUtils.createAuthorityList("ROLE_ADMIN");
         user = new AuthUser(
@@ -62,6 +63,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 authorityList
         );
         user.setUserId(1L);
+        user.setNickname("管理员");
         users.add(user);
         return users;
     }

@@ -109,7 +109,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         RequestMatcher notFavIcon = new NegatedRequestMatcher(new AntPathRequestMatcher("/**/favicon.*"));
         RequestMatcher notXRequestedWith = new NegatedRequestMatcher(
                 new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"));
-        boolean isCsrfEnabled = http.getConfigurer(CsrfConfigurer.class) != null;
         List<RequestMatcher> matchers = new ArrayList<>();
         RequestMatcher getRequests = new AntPathRequestMatcher("/**", "GET");
         matchers.add(0, getRequests);

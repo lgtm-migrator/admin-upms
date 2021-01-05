@@ -102,7 +102,7 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(value = UpmsException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseResult handleFebsException(ResponseResult e) {
+    public ResponseResult handleBaseException(ResponseResult e) {
         log.error("系统异常", e);
         return ResponseResult.newInstance().message(e.getMessage());
     }

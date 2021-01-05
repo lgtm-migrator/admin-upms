@@ -75,3 +75,18 @@ mybatis-plus:
       select-strategy: ignored
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+upms:
+  security:
+    enable: true
+    # client provider id
+    client-registration-id: upms-login
+    # client id
+    client-id: upms-server
+    # client secret
+    client-secret: upms123456
+    #app id
+    appid: [ "upms-server" ]
+    login-endpoint: http://localhost:8099/oauth/token
+    logout-endpoint: http://localhost:8099/oauth/signout
+    logout-redirect-uri: http://localhost:8080

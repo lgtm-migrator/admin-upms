@@ -43,7 +43,7 @@ public class TokenEndpoint {
     @RequestMapping("/oauth/current/token")
     @ResponseBody
     public OAuth2AuthorizedClient getToken(Authentication authentication) {
-        return authorizedClientService.loadAuthorizedClient(properties.getClientId(), authentication.getName());
+        return authorizedClientService.loadAuthorizedClient(properties.getClientRegistrationId(), authentication.getName());
     }
 
     /**

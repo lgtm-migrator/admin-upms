@@ -29,7 +29,7 @@ import java.net.URI;
  */
 public class Oauth2LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
-    private BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
+    private BearerTokenResolver bearerTokenResolver;
     @Getter
     private String postLogoutRedirectUri;
     private RestOperations restOperations;
@@ -40,6 +40,10 @@ public class Oauth2LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
         this.restOperations = new RestTemplate();
         URI endpoint = this.endSessionEndpoint(properties);
         this.requestEntityConverter = this.defaultRequestEntityConverter(endpoint);
+        DefaultBearerTokenResolver defaultBearerTokenResolver = new DefaultBearerTokenResolver();
+        defaultBearerTokenResolver.setAllowUriQueryParameter(true);
+        defaultBearerTokenResolver.setAllowFormEncodedBodyParameter(true);
+        this.bearerTokenResolver = defaultBearerTokenResolver;
     }
 
     @Override

@@ -15,6 +15,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @EqualsAndHashCode(callSuper = true)
 public class UpmsSecurityStarterProperties extends UpmsSecurityProperties {
     /**
+     * provider
+     */
+    private String clientRegistrationId;
+    /**
      * 客户端
      */
     private String clientId;

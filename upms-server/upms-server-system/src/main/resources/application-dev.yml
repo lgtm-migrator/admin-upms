@@ -83,10 +83,13 @@ upms:
     client-registration-id: upms-login
     # client id
     client-id: upms-server
-    # client secret
+    # client 密钥
     client-secret: upms123456
-    #app id
+    # 应用id
     appid: [ "upms-server" ]
-    login-endpoint: http://localhost:8099/oauth/token
-    logout-endpoint: http://localhost:8099/oauth/signout
+    # oauth2 登出端点 authorization-server
+    logout-oauth2-endpoint: http://localhost:8099/oauth/signout
+    # oauth2 登录端点 authorization-server
+    login-oauth2-endpoint: http://localhost:8099/oauth/token
+    # 登出之后重定向端点
     logout-redirect-uri: http://localhost:8080

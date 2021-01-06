@@ -58,7 +58,7 @@ public class Oauth2RefreshHandler {
 
     protected URI requestEndpoint(UpmsSecurityStarterProperties properties) {
         if (properties != null) {
-            String endpoint = properties.getLoginEndpoint();
+            String endpoint = properties.getLoginOauth2Endpoint();
             if (endpoint != null) {
                 return URI.create(endpoint);
             }

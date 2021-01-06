@@ -23,7 +23,7 @@
                             以及 spring-authorization-server OAuth2AuthorizationEndpointFilter
                             -->
                             <input type="hidden" name="user_oauth_approval" value="true">
-<!--                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+                            <!--                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
                             <input type="hidden" name="client_id" th:value="${authorizationRequest.clientId}">
                             <input type="hidden" name="state" th:value="${authorizationRequest.state}">
                             <div class="form-group">
@@ -42,7 +42,7 @@
                                 <button type="submit" value="approve" class="btn btn-primary">
                                     授权
                                 </button>
-                                <button type="button" name="cancel" class="btn btn-secondary">
+                                <button type="button" onclick="changeValue" name="cancel" class="btn btn-secondary">
                                     取消
                                 </button>
                             </div>
@@ -76,9 +76,17 @@
 </style>
 <script type="text/javascript">
     $(function () {
-        $("[name='cancel']").on("click", function () {
-            window.location.href = "./login.html"
+        $("button[name='cancel']").on('click',function (){
+            changeValue();
+            $("form").submit();
         })
     })
+
+    function changeValue() {
+        $("input[name='user_oauth_approval']").val(false);
+        $(".scope > li > input").each(function (index){
+            $(this).val(false)
+        })
+    }
 </script>
 </html>

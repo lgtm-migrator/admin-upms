@@ -142,8 +142,6 @@
                     processData: false,  // 不处理数据
                     contentType: false,   // 不设置内容类型
                     success: function (data) {
-                        console.log("登录成功")
-                        console.info(data.data)
                         window.location.href = data.data
                     },
                     error: function (data) {

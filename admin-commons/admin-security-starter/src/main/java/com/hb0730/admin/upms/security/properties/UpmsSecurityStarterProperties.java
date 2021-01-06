@@ -34,11 +34,11 @@ public class UpmsSecurityStarterProperties extends UpmsSecurityProperties {
     /**
      * 登录端点
      */
-    private String loginEndpoint;
+    private String loginOauth2Endpoint;
     /**
      * 注销端点
      */
-    private String logoutEndpoint;
+    private String logoutOauth2Endpoint;
 
     /**
      * 注销后重定向

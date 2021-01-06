@@ -1,6 +1,7 @@
 package com.hb0730.admin.upms.security.configuration;
 
 import com.hb0730.admin.upms.commons.entity.constant.EndpointConstant;
+import com.hb0730.admin.upms.security.handler.login.Oauth2LoginFailureHandler;
 import com.hb0730.admin.upms.security.handler.login.Oauth2LoginSuccessHandler;
 import com.hb0730.admin.upms.security.handler.logout.Oauth2LogoutSuccessHandler;
 import com.hb0730.admin.upms.security.properties.UpmsSecurityStarterProperties;
@@ -27,6 +28,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
     private final RedisOauth2AuthorizedClientServiceImpl redisOauth2AuthorizedClientService;
     private final UpmsSecurityStarterProperties upmsSecurityStarterProperties;
+    private final Oauth2LoginFailureHandler oauth2LoginFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -69,6 +71,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .redirectionEndpoint()
                 .and()
                 .successHandler(oauth2LoginSuccessHandler)
+                .failureHandler(oauth2LoginFailureHandler)
         ;
         http
                 .oauth2Client()

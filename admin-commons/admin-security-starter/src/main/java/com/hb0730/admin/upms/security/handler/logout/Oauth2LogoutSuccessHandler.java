@@ -61,7 +61,7 @@ public class Oauth2LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
     protected URI endSessionEndpoint(UpmsSecurityStarterProperties properties) {
         if (properties != null) {
-            String endpoint = properties.getLogoutEndpoint();
+            String endpoint = properties.getLogoutOauth2Endpoint();
             if (endpoint != null) {
                 return URI.create(endpoint);
             }

@@ -48,6 +48,8 @@ public class UserEndpoint {
     @RequestMapping("/oauth/current/user")
     @ResponseBody
     public Authentication getCurrentUser() {
+        // Oauth2AuthenticationToken
+        // BearerTokenAuthentication
         return SecurityContextHolder.getContext().getAuthentication();
     }
 }

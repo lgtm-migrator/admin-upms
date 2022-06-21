@@ -19,7 +19,7 @@
         <spring.boot.version>2.4.1</spring.boot.version>
         <spring.security.oauth.version>2.4.1.RELEASE</spring.security.oauth.version>
         <lombok.version>1.18.12</lombok.version>
-        <mysql.version>8.0.21</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <guava.version>30.0-jre</guava.version>
         <hikaricp.version>3.4.5</hikaricp.version>
         <commons.pool2.version>2.8.1</commons.pool2.version>
